@@ -1,11 +1,13 @@
 import React, {Fragment} from "react";
+import Item from "./Item";
 
 const List  = (props) => {
-    console.log(props)
     return (
       <Fragment>
-        <li id={props.id}>Order: {props.order} Prize: {props.prize} </li>
-        <button id={props.id} type="submit">Delete</button>
+
+        {props.orderList.map((order) => {return (
+          <Item order={order} onDelete={props.onDelete}></Item>
+        )})}
         </Fragment>
     )
 }

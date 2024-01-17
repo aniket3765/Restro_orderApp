@@ -7,8 +7,30 @@ function App() {
   const [order, setOrder] = useState('');
   const [prize, setPrize] = useState('');
   const [table, setTable] = useState('1');
-  const [orderList, setOrderList] = useState([]);
+  const [orderList, setOrderList] = useState([
+    {
+      id:1,
+      table:"1",
+      order:"paneer tikka",
+      prize:123
+    },
+    {
+      id:2,
+      table:"2",
+      order:"chiken",
+      prize:1
+    },
+    {
+      id:3,
+      table:"3",
+      order:"chinese",
+      prize:87
+    }
+  ]);
   
+  const onDelete = (event) => {
+    setOrderList(orderList.filter((order)=> {if(order.id != event.target.id) return order}))
+  }
 
   const uniqueIdHandler = (event) =>{
     console.log(uniqueId)
@@ -34,7 +56,7 @@ function App() {
       order:order,
       table:table
     }
-    setOrderList([...orderList, newOrder])
+    setOrderList([...orderList, newOrder]);
     
 
   }
@@ -57,7 +79,20 @@ function App() {
         </select>
         <button type='submit'>Place Order</button>
         </form>
-       {orderList.map((order)=>{return (<List key={Math.random()} id={order.id} order={order.order} prize={order.prize} table={order.table}></List>)})}
+        <label>Table: 1</label>
+        <List 
+        orderList={orderList.filter((order)=> {if(order.table === "1") return order})} 
+        onDelete = {onDelete}
+        ></List><br />
+        <label>Table: 2</label>
+        <List 
+        orderList={orderList.filter((order)=> {if(order.table === "2") return order})}
+        onDelete = {onDelete}></List><br />
+        <label>Table: 3</label>
+        <List 
+        orderList={orderList.filter((order)=> {if(order.table === "3") return order})}
+        onDelete = {onDelete}></List>
+        
     </div>
   );
 }
